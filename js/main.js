@@ -6,11 +6,19 @@ const products = [
   {name:'Shelf Style Fabric Wardrobe', price:200, category:'furniture', img:'images/furniture1.jpeg'},
   {name:'Office Chair', price:255, category:'furniture', img:'images/furniture3.jpeg'},
   {name:'Silver Crest Ceramic Stove', price:445, category:'furniture', img:'images/furniture4.jpeg'},
+   {name:'Inflatable Sofa', price:129, category:'furniture', img:'images/furniture5.jpeg'},
+  {name:'Air Cooler fan', price:115, category:'furniture', img:'images/furniture6.jpeg'},
+  {name:'Silk Wool tie-dye carpet', price:68, category:'furniture', img:'images/furniture7.jpeg'},
+ 
   // Electronics
   {name:'Ring Light', price:79, category:'electronics', img:'images/electronics3.jpeg'},
   {name:'D2000 Ultra 3 Smart Watch', price:159, category:'electronics', img:'images/electronics4.jpeg'},
-  {name:'Portable Chargeable Mobile Phone Light', price:'2pieces-159', category:'electronics', img:'images/electronics1.jpeg'},
-   {name:'Bluetooth Speaker Set', price:379, category:'electronics', img:'images/electronics2.jpeg'},
+  {name:'K9 Lavalier Microphone', price:92, category:'electronics', img:'images/electronics9.jpeg'},
+   {name:'Lavalier Microphone', price:219, category:'electronics', img:'images/electronics10.jpeg'}, {name:'Ring Light', price:79, category:'electronics', img:'images/electronics3.jpeg'},
+  {name:'Lavalier Microphone', price:215, category:'electronics', img:'images/electronics11.jpeg'},
+  {name:'Hanging Hair Dyer', price:780, category:'electronics', img:'images/electronics15.jpeg'},
+   {name:'Washing Machine', price:1184, category:'electronics', img:'images/electronics16.jpeg'},
+ 
   // Kitchen
   {name:'Portable Cooker', price:115, category:'kitchen', img:'images/kitchen1.jpeg'},
    {name:'Silver Crest Electric Blender', price:135, category:'kitchen', img:'images/kitchen2.jpeg'},
@@ -18,7 +26,15 @@ const products = [
      {name:'Electric Rice Cooker', price:180, category:'kitchen', img:'images/kitchen7.jpeg'},
       {name:'Cooking Utensil', price:496, category:'kitchen', img:'images/kitchen6.jpeg'},
        {name:'Utensil 3 set', price:345, category:'kitchen', img:'images/kitchen4.jpeg'},
-        {name:'For Kitchen', price:55, category:'kitchen', img:'images/kitchen5.jpeg'},
+        {name:'Utensil Stand', price:55, category:'kitchen', img:'images/kitchen5.jpeg'},
+         {name:'4 Utensil set Kitchen', price:420, category:'kitchen', img:'images/kitchen8.jpeg'},
+      {name:'Multifunction Kitchen Artifact', price:94, category:'kitchen', img:'images/kitchen9.jpeg'},
+       {name:'Multifunction Vegetable Cutter', price:158, category:'kitchen', img:'images/kitchen10.jpeg'},
+        {name:'3 set Bottle', price:75, category:'kitchen', img:'images/kitchen11.jpeg'},
+        {name:'3 set Bottle', price:83, category:'kitchen', img:'images/kitchen12.jpeg'},
+        {name:'9 Bowl Set', price:65, category:'kitchen', img:'images/kitchen13.jpeg'},
+
+  
   // Fashion
   {name:'Ladies Bag', price:105, category:'fashion', img:'images/fashion3.jpeg'},
   {name:'Ladies 4set Perfume', price:68, category:'fashion', img:'images/fashion4.jpeg'},
@@ -37,8 +53,19 @@ const products = [
   {name:'Watch Set', price:185, category:'fashion', img:'images/fashion14.jpeg'},
   {name:'Glasses (5pieces)', price:134, category:'fashion', img:'images/fashion15.jpeg'},
   {name:'Glasses (5pieces)', price:186, category:'fashion', img:'images/fashion16.jpeg'},
+  {name:'Female Ribbon Set ', price:55, category:'fashion', img:'images/fashion18.jpeg'},
+  {name:'Hair Set', price:115, category:'fashion', img:'images/fashion19.jpeg'},
+  {name:'Ladies Wallet Set', price:68, category:'fashion', img:'images/fashion20.jpeg'},
+  {name:'Designer Cap (5pieces)', price:158, category:'fashion', img:'images/fashion22.jpeg'},
+  {name:'Hair Bonnet (5pieces)', price:98, category:'fashion', img:'images/fashion23.jpeg'},
+  {name:'Standing Dressing Mirror', price:187, category:'fashion', img:'images/fashion25.jpeg'},
+
+  {name:'Heat Comb', price:61, category:'fashion', img:'images/fashion27.jpeg'},
+  {name:'Hair Straightener', price:82, category:'fashion', img:'images/fashion26.jpeg'},
+  {name:'Aromatherapy (4set)', price:42, category:'fashion', img:'images/fashion28.jpeg'},
   // Auto
-  {name:'Motorcycle Helmet', price:150, category:'auto', img:'images/auto1.jpg'},
+  {name:'Washroom Set', price:180, category:'auto', img:'images/auto1.jpeg'},
+   {name:'Bathroom Toilet Gap Storage Cabinet', price:230, category:'auto', img:'images/auto2.jpeg'},
 ];
 
 // WhatsApp number
@@ -75,7 +102,7 @@ function loadProducts(containerId='product-grid', category=null) {
     div.innerHTML = `
       <img src="${p.img}" alt="${p.name}">
       <h3>${p.name}</h3>
-      <p>Price: GHS ${p.price}</p>
+      <p>Price: GH¢ ${p.price}</p>
       <div class="product-actions">
         <input type="number" min="1" value="1" class="qtyInput">
         <button class="btn addCartBtn">Add to Cart</button>
@@ -113,7 +140,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
     }
     let message = 'Hello NAKS Importation, I want to order:\n';
     cart.forEach((item,i)=>{
-      message += `${i+1}. ${item.name}${item.size? ' – Size: '+item.size:''} – Qty: ${item.qty} – Price: GHS ${item.price}\n`;
+      message += `${i+1}. ${item.name}${item.size? ' – Size: '+item.size:''} – Qty: ${item.qty} – Price: Gh¢ ${item.price}\n`;
     });
     window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`, '_blank');
   });
@@ -129,7 +156,7 @@ function loadCartReceipt(){
   let total = 0;
   order.forEach(p=>{
     const li = document.createElement('li');
-    li.textContent = `${p.name}${p.size? ' – Size: '+p.size:''} – Qty: ${p.qty} – Price: GHS ${p.price}`;
+    li.textContent = `${p.name}${p.size? ' – Size: '+p.size:''} – Qty: ${p.qty} – Price: Gh¢ ${p.price}`;
     productList.appendChild(li);
     total += p.price * p.qty;
   });
