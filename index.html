@@ -7,6 +7,8 @@
   <link rel="stylesheet" href="css/style.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
   <script src="js/main.js" defer></script>
+  <meta name="theme-color" content="#0056b3">
+
 </head>
 <body>
 
@@ -39,9 +41,37 @@
 </section>
 
 <!-- Categories -->
+ <!-- Categories -->
 <section class="categories">
   <h2>Shop by Category</h2>
+
   <div class="category-grid">
+    <a href="categories.html?category=furniture" class="category-btn">
+      Furniture & Home Decor
+    </a>
+
+    <a href="categories.html?category=electronics" class="category-btn">
+      Electronics & Gadgets
+    </a>
+
+    <a href="categories.html?category=kitchen" class="category-btn">
+      Kitchen & Appliances
+    </a>
+
+    <a href="categories.html?category=fashion" class="category-btn">
+      Fashion & Accessories
+    </a>
+
+    <a href="categories.html?category=auto" class="category-btn">
+      Washroom Equipment
+    </a>
+  </div>
+</section>
+
+<!--<section class="categories">
+  <h2>Shop by Category</h2>
+  <div class="category-grid">
+    
     <button onclick="filterCategory('furniture')" class="category-btn">Furniture & Home Decor</button>
     <button onclick="filterCategory('electronics')" class="category-btn">Electronics & Gadgets</button>
     <button onclick="filterCategory('kitchen')" class="category-btn">Kitchen & Appliances</button>
@@ -49,7 +79,7 @@
     <button onclick="filterCategory('auto')" class="category-btn">Washroom Equipment</button>
   </div>
 </section>
-
+-->
 <!-- Featured Products -->
 <section class="featured-products">
   <h2>Popular Items for Pre-Order</h2>
@@ -78,6 +108,33 @@
   <p>© 2026 NAKS Importation. All rights reserved.</p>
   <p>WhatsApp: <a href="https://wa.me/233593936951">Chat Now</a> | MoMo: 0552409421</p>
 </footer>
+<!-- Cart Modal -->
+<!--<div class="cart-modal" id="cartModal" aria-hidden="true">
+  <div class="cart-modal-content">
+    <h2>Your Cart</h2>
+
+    <div id="cartItems"></div>
+
+    <div class="cart-actions">
+      <button id="closeCart" class="btn secondary">Continue Shopping</button>
+      <button id="submitOrder" class="btn primary">Submit Order</button>
+    </div>
+  </div>
+</div>-->
+<div class="cart-modal" id="cartModal" aria-hidden="true">
+  <div class="cart-modal-overlay" id="cartOverlay"></div>
+
+  <div class="cart-modal-content">
+    <h2>Your Cart</h2>
+    <div id="cartItems"></div>
+
+    <div class="cart-actions">
+      <button id="closeCart" class="btn secondary">Continue Shopping</button>
+      <button id="submitOrder" class="btn primary">Submit Order</button>
+    </div>
+  </div>
+</div>
+
 
 </body>
 </html>

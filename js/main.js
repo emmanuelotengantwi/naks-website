@@ -76,20 +76,90 @@ const whatsappNumber = '233593936951';
 // -----------------------------
 let cart = JSON.parse(localStorage.getItem('naksCart')) || [];
 
-function updateCartBadge() {
-  document.getElementById('cartCount').innerText = cart.length;
+function saveCart() {
   localStorage.setItem('naksCart', JSON.stringify(cart));
 }
 
-function addToCart(product, qty=1, size='') {
+function updateCartBadge() {
+  const totalQty = cart.reduce((sum, item) => sum + item.qty, 0);
+  document.getElementById('cartCount').innerText = totalQty;
+  saveCart();
+}
+//let cart = JSON.parse(localStorage.getItem('naksCart')) || [];
+
+//function updateCartBadge() {
+  //document.getElementById('cartCount').innerText = cart.length;
+  //localStorage.setItem('naksCart', JSON.stringify(cart));
+//}
+
+/*function addToCart(product, qty=1, size='') {
   cart.push({...product, qty, size});
   updateCartBadge();
-}
+}*/
+function addToCart(product, qty = 1) {
+  const existing = cart.find(item => item.name === product.name);
 
+  if (existing) {
+    existing.qty += qty;
+  } else {
+    cart.push({ ...product, qty });
+  }
+  updateCartBadge();
+}
 // -----------------------------
 // Load products for category or featured
 // -----------------------------
-function loadProducts(containerId='product-grid', category=null) {
+function loadProducts(containerId = 'product-grid', category = null) {
+  const grid = document.getElementById(containerId);
+  if (!grid) return;
+
+  grid.innerHTML = '';
+
+  const filtered = category
+    ? products.filter(p => p.category === category)
+    : products;
+
+  filtered.forEach(p => {
+    const div = document.createElement('div');
+    div.className = 'product-card';
+
+    div.innerHTML = `
+      <img src="${p.img}" alt="${p.name}">
+      <h3>${p.name}</h3>
+      <p class="price">GH¢ ${p.price}</p>
+
+      <div class="qty-control">
+        <button class="qty-btn minus">−</button>
+        <span class="qty-value">1</span>
+        <button class="qty-btn plus">+</button>
+      </div>
+
+      <button class="btn addCartBtn">Add to Cart</button>
+    `;
+
+    grid.appendChild(div);
+
+    let qty = 1;
+    const qtyValue = div.querySelector('.qty-value');
+
+    div.querySelector('.plus').onclick = () => {
+      qty++;
+      qtyValue.innerText = qty;
+    };
+
+    div.querySelector('.minus').onclick = () => {
+      if (qty > 1) {
+        qty--;
+        qtyValue.innerText = qty;
+      }
+    };
+
+    div.querySelector('.addCartBtn').onclick = () => {
+      addToCart(p, qty);
+    };
+  });
+}
+/*function loadProducts(containerId='product-grid', category=null) {
   const grid = document.getElementById(containerId);
   if (!grid) return;
   grid.innerHTML = '';
@@ -117,11 +187,11 @@ function loadProducts(containerId='product-grid', category=null) {
     });
   });
 }
-
+*/
 // -----------------------------
 // Category filter
 // -----------------------------
-function filterCategory(category) {
+/*function filterCategory(category) {
   loadProducts('product-grid', category);
 }
 
@@ -162,4 +232,120 @@ function loadCartReceipt(){
   });
   document.getElementById('totalPaid').innerText = total;
   document.getElementById('date').innerText = new Date().toLocaleDateString('en-GB', {day:'2-digit', month:'short', year:'numeric'});
+}*/
+// -----------------------------
+// Category filter (UNCHANGED, CLEAN)
+// -----------------------------
+function filterCategory(category) {
+  loadProducts('product-grid', category);
 }
+
+// -----------------------------
+// App Init
+// -----------------------------
+document.addEventListener('DOMContentLoaded', () => {
+  updateCartBadge();
+
+  // Load featured products on homepage
+  loadProducts();
+
+  // Cart icon opens preview modal (NOT WhatsApp)
+  const cartBtn = document.getElementById('cartContainer');
+  if (cartBtn) {
+    cartBtn.addEventListener('click', openCartModal);
+  }
+});
+
+// -----------------------------
+// Load cart to receipt page
+// -----------------------------
+function loadCartReceipt() {
+  const order = JSON.parse(localStorage.getItem('naksCart')) || [];
+
+  const nameEl = document.getElementById('customerName');
+  const productList = document.getElementById('productList');
+  const totalEl = document.getElementById('totalPaid');
+  const dateEl = document.getElementById('date');
+
+  if (!productList) return;
+
+  nameEl.innerText = 'Emmanuel Oteng';
+  productList.innerHTML = '';
+
+  let total = 0;
+
+  order.forEach(item => {
+    const li = document.createElement('li');
+    li.textContent = `${item.name} – Qty: ${item.qty} – GH¢ ${item.price * item.qty}`;
+    productList.appendChild(li);
+
+    total += item.price * item.qty;
+  });
+
+  totalEl.innerText = total;
+  dateEl.innerText = new Date().toLocaleDateString('en-GB', {
+    day: '2-digit',
+    month: 'short',
+    year: 'numeric'
+  });
+}
+const cartModal = document.getElementById('cartModal');
+const cartItemsContainer = document.getElementById('cartItems');
+const closeCartBtn = document.getElementById('closeCart');
+const submitOrderBtn = document.getElementById('submitOrder');
+function renderCartModal() {
+  cartItemsContainer.innerHTML = '';
+
+  if (cart.length === 0) {
+    cartItemsContainer.innerHTML = '<p>Your cart is empty.</p>';
+    return;
+  }
+
+  cart.forEach((item, index) => {
+    const div = document.createElement('div');
+    div.className = 'cart-item';
+
+    div.innerHTML = `
+      <img src="${item.img}" alt="${item.name}">
+      <div class="cart-item-info">
+        <h4>${item.name}</h4>
+        <p>Qty: ${item.qty}</p>
+        <p>Price: GH¢ ${item.price}</p>
+      </div>
+      <button class="remove-item" data-index="${index}">✕</button>
+    `;
+
+    cartItemsContainer.appendChild(div);
+  });
+
+  // Remove item
+  document.querySelectorAll('.remove-item').forEach(btn => {
+    btn.addEventListener('click', e => {
+      const index = e.target.dataset.index;
+      cart.splice(index, 1);
+      updateCartBadge();
+      renderCartModal();
+    });
+  });
+}
+document.getElementById('cartContainer').addEventListener('click', () => {
+  renderCartModal();
+  cartModal.classList.add('show');
+});
+closeCartBtn.addEventListener('click', () => {
+  cartModal.classList.remove('show');
+});
+submitOrderBtn.addEventListener('click', () => {
+  if (cart.length === 0) return;
+
+  let message = 'Hello NAKS Importation, I want to order:\n\n';
+
+  cart.forEach((item, i) => {
+    message += `${i + 1}. ${item.name} × ${item.qty} – GH¢ ${item.price}\n`;
+  });
+
+  window.open(
+    `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`,
+    '_blank'
+  );
+});
