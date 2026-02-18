@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout - NAKS Importation</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/main.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <a href="index.html" class="brand">
+      <img src="images/logo.png" alt="NAKS Logo" class="logo">
+      <span>NAKS Importation</span>
+    </a>
+
+    <nav class="main-nav">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="categories.html" class="nav-link">Shop</a>
+      <a href="cart.html" class="nav-link">Cart</a>
+      <a href="orders.html" class="nav-link">Orders</a>
+    </nav>
+
+    <div class="header-right">
+      <a href="cart.html" class="btn secondary">Back to Cart</a>
+    </div>
+  </header>
+
+  <main class="checkout-layout section-wrap">
+    <section class="checkout-form-box">
+      <h1>Secure Checkout</h1>
+      <p>Fill details, place order, then customer pays to <strong>0593936951</strong>.</p>
+
+      <form id="checkoutForm" class="checkout-form" novalidate>
+        <label for="fullName">Full Name</label>
+        <input id="fullName" name="fullName" type="text" required>
+
+        <label for="phone">Phone Number</label>
+        <input id="phone" name="phone" type="tel" placeholder="0241234567" required>
+
+        <label for="deliveryAddress">Delivery Address</label>
+        <textarea id="deliveryAddress" name="deliveryAddress" rows="3" required></textarea>
+
+        <label for="network">Payment Network</label>
+        <select id="network" name="network" required>
+          <option value="mtn">MTN Mobile Money</option>
+          <option value="voda">Vodafone Cash</option>
+        </select>
+
+        <label for="momoNumber">Customer MoMo Number</label>
+        <input id="momoNumber" name="momoNumber" type="tel" placeholder="0550000000" required>
+
+        <label for="note">Order Note (Optional)</label>
+        <textarea id="note" name="note" rows="3"></textarea>
+
+        <button type="submit" class="btn">Place Order</button>
+      </form>
+    </section>
+
+    <aside class="checkout-summary-box">
+      <h2>Items Summary</h2>
+      <ul id="checkoutCartItems"></ul>
+      <p class="checkout-total">Total: <span id="checkoutTotal">GHS 0.00</span></p>
+
+      <div class="payment-help">
+        <h3>After placing order</h3>
+        <p>1. Receipt is created instantly.</p>
+        <p>2. Customer transfers to your MoMo number.</p>
+        <p>3. Customer submits transaction ID.</p>
+      </div>
+    </aside>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 NAKS Importation. All rights reserved.</p>
+  </footer>
+</body>
+</html>

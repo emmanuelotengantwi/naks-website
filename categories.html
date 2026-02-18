@@ -3,47 +3,82 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Categories - NAKS Importation</title>
+  <title>Shop - NAKS Importation</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
   <script src="js/main.js" defer></script>
 </head>
 <body>
-
-<header>
-  <div class="header-left">
-    <a href="index.html" class="logo-link">
+  <header class="site-header">
+    <a href="index.html" class="brand">
       <img src="images/logo.png" alt="NAKS Logo" class="logo">
+      <span>NAKS Importation</span>
     </a>
-  </div>
-  <div class="header-right">
-    <span class="momo">Pay via MoMo: 0552409421</span>
-    <div class="cart" id="cartContainer" title="View Cart">
-      <svg id="cartIcon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2 9m5-9v9m4-9v9m4-9l2 9"/>
-      </svg>
-      <span id="cartCount">0</span>
+
+    <nav class="main-nav">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="categories.html" class="nav-link active">Shop</a>
+      <a href="cart.html" class="nav-link">Cart</a>
+      <a href="orders.html" class="nav-link">Orders</a>
+    </nav>
+
+    <div class="header-right">
+      <button class="cart" id="cartContainer" title="View Cart" type="button">
+        <svg id="cartIcon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2 9m5-9v9m4-9v9m4-9l2 9"/>
+        </svg>
+        <span id="cartCount">0</span>
+      </button>
+    </div>
+  </header>
+
+  <main class="section-wrap categories-page">
+    <div class="section-head">
+      <h1>Shop Products</h1>
+      <span id="productCount" class="mini-meta"></span>
+    </div>
+
+    <div class="catalog-controls">
+      <input id="catalogSearch" type="search" placeholder="Search product name...">
+      <select id="catalogSort">
+        <option value="default">Sort: Featured</option>
+        <option value="price-asc">Price: Low to High</option>
+        <option value="price-desc">Price: High to Low</option>
+        <option value="name-asc">Name: A-Z</option>
+      </select>
+    </div>
+
+    <div class="category-grid" id="categoryButtons">
+      <button type="button" class="category-btn active" data-category="all">All</button>
+      <button type="button" class="category-btn" data-category="furniture">Furniture</button>
+      <button type="button" class="category-btn" data-category="electronics">Electronics</button>
+      <button type="button" class="category-btn" data-category="kitchen">Kitchen</button>
+      <button type="button" class="category-btn" data-category="fashion">Fashion</button>
+      <button type="button" class="category-btn" data-category="auto">Washroom</button>
+    </div>
+
+    <div class="product-grid" id="shopProductGrid"></div>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 NAKS Importation. All rights reserved.</p>
+  </footer>
+
+  <div class="cart-modal" id="cartModal" aria-hidden="true">
+    <div class="cart-modal-overlay" id="cartOverlay"></div>
+    <div class="cart-modal-content">
+      <div class="modal-head">
+        <h2>Your Cart</h2>
+        <button class="ghost-btn" id="closeCart" type="button">Close</button>
+      </div>
+      <div id="cartItems"></div>
+      <div class="cart-actions split">
+        <a href="cart.html" class="btn secondary">View Cart</a>
+        <button id="submitOrder" class="btn primary" type="button">Checkout</button>
+      </div>
     </div>
   </div>
-</header>
-
-<section class="categories-page">
-  <h1>Shop by Category</h1>
-  <div class="category-grid">
-    <button onclick="filterCategory('furniture')" class="category-btn">Furniture & Home Decor</button>
-    <button onclick="filterCategory('electronics')" class="category-btn">Electronics & Gadgets</button>
-    <button onclick="filterCategory('kitchen')" class="category-btn">Kitchen & Appliances</button>
-    <button onclick="filterCategory('fashion')" class="category-btn">Fashion & Accessories</button>
-    <button onclick="filterCategory('auto')" class="category-btn">Washroom Equipment</button>
-  </div>
-
-  <div class="product-grid" id="product-grid">
-    <p>Select a category above to see products</p>
-  </div>
-</section>
-
-<footer>
-  <p>© 2026 NAKS Importation. All rights reserved.</p>
-</footer>
-
 </body>
 </html>
